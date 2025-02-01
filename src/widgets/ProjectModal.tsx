@@ -50,7 +50,7 @@ const ProjectModal: React.FC = () => {
               width={500}
               height={500}
               priority
-              onLoadingComplete={() => setIsProjectImageLoading(true)}
+              onLoadingComplete={() => setIsProjectImageLoading(false)}
             />
           </ProjectImageWrapper>
           <ProjectModalTextData>
