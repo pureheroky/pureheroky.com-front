@@ -13,10 +13,13 @@ export const HomeWrapper = styled(Box)(() => ({
   flexDirection: "column",
 }));
 
-export const MainContent = styled(animated.div)(() => ({
+export const MainContent = styled(animated.div)(({theme}) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   overflow: "hidden",
+  [theme.breakpoints.down("md")]: {
+    marginBottom: "3em",
+  }
 }));
