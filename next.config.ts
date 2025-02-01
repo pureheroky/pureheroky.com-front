@@ -5,9 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "127.0.0.1",
-        port: "8080",
+        protocol: "https",
+        hostname: "akirakayoo.store",
         pathname: "/images/**",
       },
     ],
