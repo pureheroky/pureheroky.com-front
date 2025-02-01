@@ -1,7 +1,7 @@
 import { Box, Select, styled, TableContainer } from "@mui/material";
 
 export const GitCommitsTableContainer = styled(TableContainer)(({ theme }) => ({
-  maxHeight: 500,
+  maxHeight: 400,
   overflowX: "auto",
   maxWidth: "100%",
   background: "transparent",

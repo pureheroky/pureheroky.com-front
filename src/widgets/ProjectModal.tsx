@@ -3,7 +3,7 @@ import {
   selectOpenProject,
   setOpenProject,
 } from "@/services/slices/openProjectSlice";
-import { ToolTipIconWrapper, Text } from "@/styles";
+import { ToolTipIconWrapper, Text, Spinner } from "@/styles";
 import {
   ProjectActionIcon,
   ProjectActions,
@@ -17,11 +17,13 @@ import {
 } from "@/styles/ProjectModal";
 import { CloseOutlined } from "@mui/icons-material";
 import { git, website } from "@/assets/images";
-import { Tooltip } from "@mui/material";
+import { CircularProgress, Tooltip } from "@mui/material";
+import { useState } from "react";
 
 const ProjectModal: React.FC = () => {
   const dispatch = useAppDispatch();
   const openProject = useAppSelector(selectOpenProject);
+  const [isProjectImageLoading, setIsProjectImageLoading] = useState(true);
 
   const handleClose = () => {
     dispatch(setOpenProject(null));
@@ -37,12 +39,18 @@ const ProjectModal: React.FC = () => {
         </ProjectModalClose>
         <ProjectModalData>
           <ProjectImageWrapper>
+            {isProjectImageLoading && (
+              <Spinner>
+                <CircularProgress />
+              </Spinner>
+            )}
             <ProjectImage
               src={`https://akirakayoo.store${openProject.image}`}
               alt={openProject.name}
               width={500}
               height={500}
               priority
+              onLoadingComplete={() => setIsProjectImageLoading(true)}
             />
           </ProjectImageWrapper>
           <ProjectModalTextData>

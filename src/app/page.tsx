@@ -4,9 +4,6 @@ import { HomeWrapper, MainContent } from "@/styles/Home";
 import { useState, useEffect } from "react";
 import { useSpring } from "@react-spring/web";
 import { AnimatedGradientBg } from "@/styles";
-import BottomNavbar from "@/widgets/BottomNavbar";
-import Profile from "@/components/Profile/Profile";
-import About from "@/components/About/About";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   useGetUserCommitsQuery,
@@ -14,17 +11,19 @@ import {
   useGetUserProjectsQuery,
   useGetUserSkillsQuery,
 } from "@/services/api/dataApi";
-import Skills from "@/components/Skills/Skills";
+import { About } from "@/components/About";
+import { Profile } from "@/components/Profile";
+import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
-import { AnimatedText, ProgressBar } from "@/widgets";
-import GitCommits from "@/components/GitCommits/GitCommits";
+import { GitCommits } from "@/components/GitCommits";
+import { Request } from "@/components/Request";
+import { AnimatedText, ProgressBar, BottomNavbar } from "@/widgets";
 import {
   setCommits,
   setData,
   setProjects,
   setSkills,
 } from "@/services/slices/dataSlice";
-import { Request } from "@/components/Request";
 
 const Home = () => {
   const dispatch = useAppDispatch();

@@ -44,6 +44,10 @@ export const ProjectModalTextData = styled(Box)(() => ({
 }));
 
 export const ProjectImageWrapper = styled(Box)(() => ({
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   width: "20em",
   height: "11em",
 }));
@@ -52,7 +56,6 @@ export const ProjectImage = styled(Image)(() => ({
   width: "20em",
   height: "11em",
   borderRadius: "10px",
-  position: "relative",
 }));
 
 export const ProjectActions = styled(Box)(() => ({

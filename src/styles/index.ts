@@ -141,7 +141,7 @@ export const ProgressBarWrapper = styled(animated.div)(({ theme }) => ({
 
 export const ProgressBarInner = styled(animated.div)(() => ({
   height: "100%",
-  backgroundColor: "#3f51b5", // Основной цвет прогресса
+  backgroundColor: "#3f51b5",
   borderRadius: "10px",
 }));
 
@@ -187,4 +187,12 @@ export const Search = styled(Input)(() => ({
   marginBottom: "1em",
   outline: "none",
   width: "100%",
+}));
+
+export const Spinner = styled("div")(() => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  zIndex: 1,
 }));

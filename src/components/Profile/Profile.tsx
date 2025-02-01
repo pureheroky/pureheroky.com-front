@@ -7,8 +7,10 @@ import {
   ProfileWrapper,
 } from "@/styles/Profile";
 import { cat } from "@/assets/images";
-import { Text, TextLink } from "@/styles";
+import { Spinner, Text, TextLink } from "@/styles";
 import { useAppSelector } from "@/hooks/redux";
+import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 const Profile: React.FC = () => {
   const userData = useAppSelector((state) => state.data.Data) || {
@@ -19,16 +21,23 @@ const Profile: React.FC = () => {
   };
 
   const { username, age, status, avatar } = userData;
+  const [isAvatarLoading, setIsAvatarLoading] = useState(true);
 
   return (
     <ProfileWrapper>
       <ProfileAvatarWrapper>
+        {isAvatarLoading && (
+          <Spinner>
+            <CircularProgress />
+          </Spinner>
+        )}
         <ProfileAvatar
           layout="fill"
           src={`https://akirakayoo.store${avatar}`}
           alt="avatar"
           priority
           sizes="20em"
+          onLoadingComplete={() => setIsAvatarLoading(false)}
         />
         <ProfileAvatarCat src={cat} alt="me" unoptimized />
       </ProfileAvatarWrapper>

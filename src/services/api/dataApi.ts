@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 export const dataApi = createApi({
   reducerPath: "dataApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://akirakayoo.store",
+    baseUrl: "http://127.0.0.1:8080",
   }),
   endpoints: (builder) => ({
     getUserData: builder.query<UserData, void>({
