@@ -38,7 +38,7 @@ const ProjectModal: React.FC = () => {
         <ProjectModalData>
           <ProjectImageWrapper>
             <ProjectImage
-              src={`http://127.0.0.1:8080${openProject.image}`}
+              src={`https://akirakayoo.store${openProject.image}`}
               alt={openProject.name}
               width={500}
               height={500}

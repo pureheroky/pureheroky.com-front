@@ -9,7 +9,7 @@ export const ProjectCardWrapper = styled(Paper)(
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(http://127.0.0.1:8080${image})`,
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(https://akirakayoo.store${image})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

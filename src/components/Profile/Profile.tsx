@@ -25,7 +25,7 @@ const Profile: React.FC = () => {
       <ProfileAvatarWrapper>
         <ProfileAvatar
           layout="fill"
-          src={`http://127.0.0.1:8080${avatar}`}
+          src={`https://akirakayoo.store${avatar}`}
           alt="avatar"
           priority
           sizes="20em"
