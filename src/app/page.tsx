@@ -1,95 +1,152 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import { HomeWrapper, MainContent } from "@/styles/Home";
+import { useState, useEffect } from "react";
+import { useSpring } from "@react-spring/web";
+import { AnimatedGradientBg } from "@/styles";
+import BottomNavbar from "@/widgets/BottomNavbar";
+import Profile from "@/components/Profile/Profile";
+import About from "@/components/About/About";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  useGetUserCommitsQuery,
+  useGetUserDataQuery,
+  useGetUserProjectsQuery,
+  useGetUserSkillsQuery,
+} from "@/services/api/dataApi";
+import Skills from "@/components/Skills/Skills";
+import { Projects } from "@/components/Projects";
+import { AnimatedText, ProgressBar } from "@/widgets";
+import GitCommits from "@/components/GitCommits/GitCommits";
+import {
+  setCommits,
+  setData,
+  setProjects,
+  setSkills,
+} from "@/services/slices/dataSlice";
+import { Request } from "@/components/Request";
+
+const Home = () => {
+  const dispatch = useAppDispatch();
+
+  const { data: userData, isLoading: isUserDataLoading } =
+    useGetUserDataQuery();
+  const { data: userSkills, isLoading: isUserSkillsLoading } =
+    useGetUserSkillsQuery();
+  const { data: userProjects, isLoading: isUserProjectsLoading } =
+    useGetUserProjectsQuery();
+  const { data: userCommits, isLoading: isUserCommitsLoading } =
+    useGetUserCommitsQuery();
+
+  const loadingCount = [
+    isUserDataLoading,
+    isUserSkillsLoading,
+    isUserProjectsLoading,
+    isUserCommitsLoading,
+  ].filter(Boolean).length;
+
+  const totalRequests = 4;
+  const progress = ((totalRequests - loadingCount) / totalRequests) * 100;
+
+  const [showGradient, setShowGradient] = useState(false);
+  const [textMounted, setTextMounted] = useState(true);
+  const [textVisible, setTextVisible] = useState(true);
+  const [progressState, setProgressState] = useState(0);
+
+  useEffect(() => {
+    if (userData && userSkills && userProjects && userCommits) {
+      dispatch(setData(userData));
+      dispatch(setSkills(userSkills));
+      dispatch(setProjects(userProjects));
+      dispatch(setCommits(userCommits));
+    }
+  }, [dispatch, userData, userSkills, userProjects, userCommits]);
+
+  useEffect(() => {
+    if (progressState < progress) {
+      setProgressState(progress);
+    }
+  }, [progress, progressState]);
+
+  const currentPage = useAppSelector((state) => state.page.currentPage);
+
+  const setPageContent = () => {
+    switch (currentPage) {
+      case 0:
+        return <Profile />;
+      case 1:
+        return <About />;
+      case 2:
+        return <Skills />;
+      case 3:
+        return <Projects />;
+      case 4:
+        return <GitCommits />;
+      case 5:
+        return <Request />;
+      default:
+        return <></>;
+    }
+  };
+
+  useEffect(() => {
+    if (progress === 100) {
+      setTimeout(() => setShowGradient(true), 500);
+    }
+  }, [progress]);
+
+  const gradientProps = useSpring({
+    opacity: showGradient ? 1 : 0,
+    config: { duration: 2000 },
+    onRest: () => {
+      if (showGradient) {
+        setTextVisible(false);
+      }
+    },
+  });
+
+  const contentProps = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: !textMounted ? 1 : 0 },
+    config: { duration: 1200 },
+  });
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <HomeWrapper>
+      <AnimatedGradientBg style={gradientProps} />
+      {textMounted && (
+        <>
+          <AnimatedText
+            visible={textVisible}
+            onRest={() => {
+              if (!textVisible) {
+                setTextMounted(false);
+              }
+            }}
+          >
+            welcome to pureheroky.com
+          </AnimatedText>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          <ProgressBar
+            value={progressState}
+            max={100}
+            label={true}
+            visible={textVisible}
+            onRest={() => {}}
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </>
+      )}
+
+      {!textMounted && (
+        <>
+          <MainContent style={contentProps}>
+            {setPageContent()}
+            <BottomNavbar />
+          </MainContent>
+        </>
+      )}
+    </HomeWrapper>
   );
-}
+};
+
+export default Home;
