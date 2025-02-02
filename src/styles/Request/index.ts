@@ -22,6 +22,8 @@ export const RequestField = styled(TextField)(({ theme }) => ({
 
 export const RequestTextArea = styled(TextField)(({ theme }) => ({
   minHeight: "15em",
+  maxHeight: "15em",
+  overflowY: "auto",
   [theme.breakpoints.down("md")]: {
     width: "100%",
     minHeight: "unset",
