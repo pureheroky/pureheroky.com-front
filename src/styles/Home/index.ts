@@ -20,6 +20,6 @@ export const MainContent = styled(animated.div)(({theme}) => ({
   alignItems: "center",
   overflow: "hidden",
   [theme.breakpoints.down("md")]: {
-    marginBottom: "3em",
+    marginBottom: "2em",
   }
 }));
