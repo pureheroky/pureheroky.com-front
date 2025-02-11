@@ -32,7 +32,11 @@ const GitCommits: React.FC = () => {
   };
 
   useEffect(() => {
-    const filtered = commits.filter((commit) => {
+    const sortedCommits = [...commits].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
+    const filtered = sortedCommits.filter((commit) => {
       if (filter === "name") {
         return commit.project_name
           .toLowerCase()

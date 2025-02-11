@@ -1,8 +1,12 @@
 import { AboutCardContent, CardHeader, InfoRow } from "@/styles/About";
 import { Divider } from "@mui/material";
 import { ObjectWrapper, Text } from "@/styles";
+import { useAppSelector } from "@/hooks/redux";
 
 const About: React.FC = () => {
+  const userData = useAppSelector((state) => state.data.Data) || {
+    age: 18,
+  };
   return (
     <ObjectWrapper>
       <AboutCardContent>
@@ -13,7 +17,7 @@ const About: React.FC = () => {
         <InfoRow>
           <Text size="lg">Age:</Text>
           <Text weight="thin" size="lg">
-            18
+            {userData.age}
           </Text>
         </InfoRow>
 
